@@ -6,48 +6,36 @@ namespace StackApp
 {
     public class MyLLStack<T> : IEnumerable<T>
     {
-        LinkedList<T> MyStack = new LinkedList<T>();
+        private readonly LinkedList<T> _myStack = new LinkedList<T>();
 
-        public int Count
-        {
-            get 
-            {
-                return MyStack.Count;
-            }
-        }
+        public int Count => _myStack.Count;
 
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsReadOnly => false;
 
         public void Push(T item)
         {
-            MyStack.AddFirst(item);
+            _myStack.AddFirst(item);
         }
 
         public T Pop()
         {
-            if(MyStack.Count == 0)
+            if(_myStack.Count == 0)
             {
                 throw new IndexOutOfRangeException("The stack is empty");
             }
-            var item = MyStack.First.Value;
-            MyStack.RemoveFirst();
+            var item = _myStack.First.Value;
+            _myStack.RemoveFirst();
             return item;
         }
 
         public T Peek()
         {
-            if (MyStack.Count == 0)
+            if (_myStack.Count == 0)
             {
                 throw new IndexOutOfRangeException("The stack is empty");
             }
 
-            return MyStack.First.Value;
+            return _myStack.First.Value;
         }
 
         public void Add(T item)
@@ -57,17 +45,17 @@ namespace StackApp
 
         public void Clear()
         {
-            MyStack.Clear();
+            _myStack.Clear();
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            return MyStack.GetEnumerator();
+            return _myStack.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return MyStack.GetEnumerator();
+            return _myStack.GetEnumerator();
         }
     }
 }

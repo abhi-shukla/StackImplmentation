@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StackApp
 {
@@ -15,17 +12,53 @@ namespace StackApp
 
         public void Push(T item)
         {
+            if (_size == _list.Length)
+            {
+                var newArrayLength = _size == 0 ? 4 : _size*2;
+                T[] newArray = new T[newArrayLength];
 
+                _list.CopyTo(newArray, 0);
+
+                _list = newArray;
+            }
+
+            _list[_size++] = item;
+        }
+
+        public T Pop()
+        {
+            if (_size == 0)
+            {
+                throw new IndexOutOfRangeException("Stack is empty");
+            }
+
+            _size--;
+            return _list[_size];
+        }
+
+        public T Peek()
+        {
+            if (_size == 0)
+            {
+                throw new IndexOutOfRangeException("Stack is empty");
+            }
+
+            return _list[_size - 1];
+        }
+
+        public int Count
+        {
+            get { return _size; }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator<T>) _list.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _list.GetEnumerator();
         }
     }
 }
